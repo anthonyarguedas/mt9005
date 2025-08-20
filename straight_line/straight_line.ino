@@ -37,7 +37,9 @@ void setup() {
   Serial.println("Available commands:");
   Serial.println("- 'start' - Start motor movement");
   Serial.println("- 'stop' - Stop motor movement"); 
-  Serial.println("- 'speed:XXX' - Set Motor B speed (0-255)");
+  Serial.println("- 'speedA:XXX' - Set Motor A speed (0-255)");
+  Serial.println("- 'speedB:XXX' - Set Motor B speed (0-255)");
+  Serial.println("- 'speed:XXX' - Set both motors to same speed (0-255)");
 }
 
 void loop() {
@@ -101,7 +103,7 @@ void processCommand(String cmd) {
       SerialBT.println("Invalid speed value (0-255)");
     }
   } else if (cmd.startsWith("speedB:")) {
-    String speedStr = cmd.substring(7); // Remove "speed:" prefix
+    String speedStr = cmd.substring(7); // Remove "speedB:" prefix
     int speedValue = speedStr.toInt();
 
     // Validate speed range
@@ -115,7 +117,8 @@ void processCommand(String cmd) {
       Serial.println("Invalid speed value (0-255)");
       SerialBT.println("Invalid speed value (0-255)");
     }
-} else if (cmd.startsWith("speed:")) {
+    
+  } else if (cmd.startsWith("speed:")) {
     String speedStr = cmd.substring(6); // Remove "speed:" prefix
     int speedValue = speedStr.toInt();
 
